@@ -2,6 +2,7 @@ package org.linphone.sample;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -41,11 +42,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
 
         mLed = findViewById(R.id.led);
+        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
 
-        // Monitors the registration state of our account(s) and update the LED accordingly
         mCoreListener = new CoreListenerStub() {
             @Override
             public void onRegistrationStateChanged(Core core, ProxyConfig cfg, RegistrationState state, String message) {
+                android.util.Log.w("myLog", "REG STATE " + state);
                 updateLed(state);
             }
         };

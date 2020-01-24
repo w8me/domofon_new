@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--Custom-->
+  <string name="app_name">Линфон</string>
+    <!--Notifications-->
+  <!--Common-->
+    <!--Launch screen-->
+  <!--Assistant-->
+    <!--Status-->
+  <!--In-app-->
+  <!--Dailer-->
+  <!--History-->
+    <!--Contacts-->
+    <!--Chat-->
+    <!--Status Bar-->
+    <!--Side Menu-->
+    <!--Call-->
+    <!--Recordings-->
+  <!--About-->
+    <!--Service-->
+    <string name="unread_messages">непрочитаних порука: %i</string>
+  <!--Errors-->
+    <!--Account Settings-->
+    <!--Settings-->
+    <!--do not change order without changing corresponding entry_values in non_localizable_strings.xml-->
+    <!--Audio settings-->
+    <!--Video settings-->
+    <!--Contact settings-->
+    <!--Call settings-->
+    <!--Chat settings-->
+    <!--Network settings-->
+    <!--Advanced settings-->
+    <!--Audio hack settings-->
+    <!--Device specifics-->
+    <!--Debug popup-->
+    <!--Content description-->
+    <string name="content_description_decline">Одбиј</string>
+    <string name="content_description_accept">Прихватам</string>
+</resources>

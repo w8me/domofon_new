@@ -16,12 +16,26 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
-    <Button
-        android:id="@+id/terminate_call"
-        android:text="Terminate call"
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal">
+
+        <org.linphone.sample.CallIncomingAnswerButton
+            android:id="@+id/answer_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <org.linphone.sample.CallIncomingDeclineButton
+            android:id="@+id/decline_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

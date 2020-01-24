@@ -12,7 +12,7 @@
         <EditText
             android:id="@+id/username"
             android:hint="Username"
-            android:text="991"
+            android:text="990"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

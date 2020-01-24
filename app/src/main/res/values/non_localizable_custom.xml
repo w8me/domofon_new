@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- URLs, URIs and domain -->
+    <!-- Set the default domain used for account creation/addresses -->
+
+    <!-- Textual mention of the app name -->
+    <string name="notification_channel_id" translatable="false">linphone_notification_id</string>
+
+    <!-- Push notification settings -->
+
+    <!-- UI config -->
+
+    <!-- Time -->
+
+    <!-- Phone numbers -->
+    <!-- Use phone number for validation -->
+    <!-- Time between two link your account with phone number dialog in milliseconds -->
+
+    <!-- Assistant -->
+    <!-- Only on should be set to true at a time! If not the first one will be used -->
+    <!-- Start assistant in linphone login view instead of menu -->
+    <!-- Start assistant in generic login view instead of menu -->
+    <!-- Start Linphone creation account in loginFragment view instead of menu -->
+    <!-- Set the email field of the wizard with one of the gmail account registered on the device -->
+
+    <!-- Call -->
+
+    <!-- Settings -->
+
+    <!-- Chat -->
+
+    <!-- Shortcuts -->
+    <!-- The below two settings are mutually exclusive -->
+
+    <!-- Contacts -->
+    <!-- Recommended -->
+
+    <!-- Side Menu -->
+
+    <!-- Notifications -->
+    <integer name="notification_ms_on">1000</integer>
+    <integer name="notification_ms_off">7000</integer>
+    <!-- Only for Android >= 23 -->
+
+    <!-- Others Parameters-->
+
+    <!-- Inapp -->
+    <!-- Notification shown before end of trial version in days -->
+    <!-- Time between two inapp notifications in milliseconds -->
+
+</resources>
+

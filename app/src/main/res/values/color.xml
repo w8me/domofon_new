@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#ff5e00</color>
-    <color name="background">#444444</color>
+
+    <color name="primary_color">#ff5e00</color> <!-- Try to have a color that renders well on both light & dark theme -->
+    <!-- You can use https://material.io/design/color/#tools-for-picking-colors to get dark color value from primary -->
+    <color name="primary_dark_color">#e65000</color>
+    <color name="primary_light_color">#ffab4d</color>
+    <color name="notification_led_color">#ff8000</color>
+
+    <color name="dark_grey_color">#444444</color>
+    <color name="grey_color">#808080</color>
+    <color name="light_grey_color">#c4c4c4</color>
+    <color name="white_color">#ffffff</color>
+    <color name="red_color">#ff0000</color>
+    <color name="green_color">#96c11f</color>
+
+    <color name="toolbar_color">#e1e1e1</color>
+    <color name="header_background_color">#f3f3f3</color>
+    <color name="background">#ffeee5</color>
+
+    <color name="disabled_color">#808080</color>
 </resources>

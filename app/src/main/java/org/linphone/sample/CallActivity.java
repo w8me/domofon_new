@@ -2,17 +2,19 @@ package org.linphone.sample;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.TextureView;
-import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
 import org.linphone.core.Call;
+import org.linphone.core.CallParams;
 import org.linphone.core.Core;
 import org.linphone.core.CoreListenerStub;
 import org.linphone.core.VideoDefinition;
@@ -29,8 +31,15 @@ public class CallActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        android.util.Log.w("myLog", "asdasdas ");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Version.sdkAboveOrEqual(Version.API27_OREO_81)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
 
         setContentView(R.layout.call);
+        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
 
         mVideoView = findViewById(R.id.videoSurface);
         mCaptureView = findViewById(R.id.videoCaptureSurface);
@@ -53,20 +62,34 @@ public class CallActivity extends Activity {
             }
         };
 
-        findViewById(R.id.terminate_call).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Core core = LinphoneService.getCore();
-                if (core.getCallsNb() > 0) {
-                    Call call = core.getCurrentCall();
-                    if (call == null) {
-                        // Current call can be null if paused for example
-                        call = core.getCalls()[0];
+
+        CallIncomingAnswerButton mAccept = findViewById(R.id.answer_button);
+        CallIncomingDeclineButton mDecline = findViewById(R.id.decline_button);
+
+        mAccept.setListener(
+                new CallIncomingButtonListener() {
+                    @Override
+                    public void onAction() {
+                        CallParams params = LinphoneService.getCore().createCallParams(LinphoneService.getCore().getCurrentCall());
+                        params.enableVideo(true);
+                        LinphoneService.getCore().getCurrentCall().acceptWithParams(params);
                     }
-                    call.terminate();
-                }
-            }
-        });
+                });
+        mDecline.setListener(
+                new CallIncomingButtonListener() {
+                    @Override
+                    public void onAction() {
+                        Core core = LinphoneService.getCore();
+                        if (core.getCallsNb() > 0) {
+                            Call call = core.getCurrentCall();
+                            if (call == null) {
+                                // Current call can be null if paused for example
+                                call = core.getCalls()[0];
+                            }
+                            call.terminate();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -77,7 +100,6 @@ public class CallActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
         LinphoneService.getCore().addListener(mCoreListener);
         resizePreview();
     }

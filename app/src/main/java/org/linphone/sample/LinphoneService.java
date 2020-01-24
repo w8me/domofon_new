@@ -1,25 +1,31 @@
 package org.linphone.sample;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import org.linphone.core.Call;
-import org.linphone.core.CallParams;
 import org.linphone.core.Core;
 import org.linphone.core.CoreListenerStub;
 import org.linphone.core.Factory;
 import org.linphone.core.LogCollectionState;
-import org.linphone.core.MediaDirection;
 import org.linphone.core.tools.Log;
 import org.linphone.mediastream.Version;
+import org.linphone.sample.compatibility.Compatibility;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,6 +44,8 @@ public class LinphoneService extends Service {
 
     private Core mCore;
     private CoreListenerStub mCoreListener;
+    public Call mCall;
+
 
     public static boolean isReady() {
         return sInstance != null;
@@ -72,20 +80,18 @@ public class LinphoneService extends Service {
         Log.i(START_LINPHONE_LOGS);
         dumpDeviceInformation();
         dumpInstalledLinphoneInformation();
-
         mHandler = new Handler();
         // This will be our main Core listener, it will change activities depending on events
         mCoreListener = new CoreListenerStub() {
             @Override
             public void onCallStateChanged(Core core, Call call, Call.State state, String message) {
                 Toast.makeText(LinphoneService.this, message, Toast.LENGTH_SHORT).show();
-
+                android.util.Log.w("myLog", "STATE CHANGE " + state);
                 if (state == Call.State.IncomingReceived) {
-                    Toast.makeText(LinphoneService.this, "Incoming call received, answering it automatically", Toast.LENGTH_LONG).show();
-                    // For this sample we will automatically answer incoming calls
-                    CallParams params = getCore().createCallParams(call);
-                    params.enableVideo(true);
-                    call.acceptWithParams(params);
+                    android.util.Log.w("myLog", "INCOME " + call);
+                    mCall = call;
+                    sendNotification();
+                  //  displayCallNotification(getApplicationContext());
                 } else if (state == Call.State.Connected) {
                     // This stats means the call has been established, let's start the call activity
                     Intent intent = new Intent(LinphoneService.this, CallActivity.class);
@@ -117,6 +123,27 @@ public class LinphoneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+
+
+        String CHANNEL_ID = "Background Service";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher);
+            Notification notification = builder
+                    .setColor(getResources().getColor(R.color.primary_color))
+                    .setContentTitle("Активно приложение Binman")
+                    .build();
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription(CHANNEL_ID);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.BLUE);
+            mChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(mChannel);
+            startForeground(1231, notification);
+
+        }
 
         // If our Service is already running, no need to continue
         if (sInstance != null) {
@@ -168,7 +195,7 @@ public class LinphoneService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         // For this sample we will kill the Service at the same time we kill the app
-        stopSelf();
+        //  stopSelf();
 
         super.onTaskRemoved(rootIntent);
     }
@@ -235,5 +262,72 @@ public class LinphoneService extends Service {
         lOutputStream.flush();
         lOutputStream.close();
         lInputStream.close();
+    }
+
+
+    public void displayCallNotification() {
+
+        Intent i = new Intent(App.getInstance(), CallActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(App.getInstance(), (int) System.currentTimeMillis(), i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        Notification notification = Compatibility.createIncomingCallNotification(App.getInstance(), 12312, null, "32342", "123123", pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        String CHANNEL_ID_NOTIFICATION = "myasdas";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID_NOTIFICATION, CHANNEL_ID_NOTIFICATION, NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription(CHANNEL_ID_NOTIFICATION);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.BLUE);
+            mChannel.enableVibration(true);
+            mChannel.setShowBadge(true);
+
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager.notify((int) System.currentTimeMillis(), notification);
+
+    }
+
+
+    public void sendNotification(){
+        Intent i = new Intent(App.getInstance(), CallActivity.class);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String NOTIFICATION_CHANNEL_ID2 = "My Notifications2";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID2, NOTIFICATION_CHANNEL_ID2, NotificationManager.IMPORTANCE_MAX);
+
+            // Configure the notification channel.
+            notificationChannel.setDescription("Channel description");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        // assuming your main activity
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(App.getInstance(), NOTIFICATION_CHANNEL_ID2);
+        notificationBuilder
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setCategory(NotificationCompat.CATEGORY_CALL)
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.topbar_call_notification)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setFullScreenIntent(pendingIntent,true);
+        android.util.Log.w("myLog", "SHOW NOTIFICATION ");
+        notificationManager.notify(/*notification id*/(int) System.currentTimeMillis(), notificationBuilder.build());
+    }
+
+
+
+    private PendingIntent buildPendingIntent(Context context, Intent intent) {
+
+        return (PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 }
