@@ -1,4 +1,4 @@
-package org.linphone.sample;
+package org.linphone.sample.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import org.linphone.core.CoreListenerStub;
 import org.linphone.core.ProxyConfig;
 import org.linphone.core.RegistrationState;
 import org.linphone.core.TransportType;
+import org.linphone.sample.service.LinphoneService;
+import org.linphone.sample.R;
 
 public class ConfigureAccountActivity extends Activity {
     private EditText mUsername, mPassword, mDomain;

@@ -22,15 +22,13 @@ package org.linphone.sample.compatibility;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.app.RemoteInput;
 import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
 
-import org.linphone.sample.NotificationBroadcastReceiver;
+import org.linphone.sample.receivers.NotificationBroadcastReceiver;
 import org.linphone.sample.R;
 
 
@@ -41,7 +39,6 @@ class ApiTwentyFourPlus {
     public static Notification createIncomingCallNotification(
             Context context,
             int callId,
-            Bitmap contactIcon,
             String contactName,
             String sipUri,
             PendingIntent intent) {
@@ -52,9 +49,6 @@ class ApiTwentyFourPlus {
         notificationLayoutHeadsUp.setTextViewText(R.id.sip_uri, sipUri);
         notificationLayoutHeadsUp.setTextViewText(
                 R.id.incoming_call_info, context.getString(R.string.incall_notif_incoming));
-        if (contactIcon != null) {
-            notificationLayoutHeadsUp.setImageViewBitmap(R.id.caller_picture, contactIcon);
-        }
 
         return new Notification.Builder(context)
                 .setStyle(new Notification.DecoratedCustomViewStyle())

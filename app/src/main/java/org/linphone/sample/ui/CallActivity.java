@@ -1,4 +1,4 @@
-package org.linphone.sample;
+package org.linphone.sample.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +14,11 @@ import org.linphone.core.CallParams;
 import org.linphone.core.Core;
 import org.linphone.core.CoreListenerStub;
 import org.linphone.mediastream.Version;
+import org.linphone.sample.views.CallIncomingAnswerButton;
+import org.linphone.sample.views.CallIncomingButtonListener;
+import org.linphone.sample.views.CallIncomingDeclineButton;
+import org.linphone.sample.service.LinphoneService;
+import org.linphone.sample.R;
 
 public class CallActivity extends Activity {
 

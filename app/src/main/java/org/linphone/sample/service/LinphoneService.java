@@ -1,4 +1,4 @@
-package org.linphone.sample;
+package org.linphone.sample.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -22,8 +22,10 @@ import org.linphone.core.CoreListenerStub;
 import org.linphone.core.Factory;
 import org.linphone.core.LogCollectionState;
 import org.linphone.core.tools.Log;
-import org.linphone.mediastream.Version;
+import org.linphone.sample.App;
+import org.linphone.sample.R;
 import org.linphone.sample.compatibility.Compatibility;
+import org.linphone.sample.ui.CallActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -75,11 +77,8 @@ public class LinphoneService extends Service {
                 if (state == Call.State.IncomingReceived) {
                     android.util.Log.w("myLog", "INCOME " + call);
                     displayCallNotification();
-                    //  displayCallNotification(getApplicationContext());
                 } else if (state == Call.State.Connected) {
-                    // This stats means the call has been established, let's start the call activity
                     Intent intent = new Intent(LinphoneService.this, CallActivity.class);
-                    // As it is the Service that is starting the activity, we have to give this flag
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
@@ -109,10 +108,7 @@ public class LinphoneService extends Service {
         String CHANNEL_ID = "Background Service";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID).setSmallIcon(R.mipmap.ic_launcher);
-            Notification notification = builder
-                    .setColor(getResources().getColor(R.color.primary_color))
-                    .setContentTitle("Активно приложение Видео дом")
-                    .build();
+            Notification notification = builder.setColor(getResources().getColor(R.color.primary_color)).setContentTitle("Активно приложение Видео дом").build();
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_HIGH);
@@ -203,7 +199,7 @@ public class LinphoneService extends Service {
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = Compatibility.createIncomingCallNotification(App.getInstance(), 12312, null, "32342", "123123", pendingIntent);
+        Notification notification = Compatibility.createIncomingCallNotification(App.getInstance(), 12312, "32342", "123123", pendingIntent);
 
         String CHANNEL_ID_NOTIFICATION = "My Notifications2";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -23,7 +23,6 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -36,21 +35,16 @@ class ApiTwentySixPlus {
     public static Notification createIncomingCallNotification(
             Context context,
             int callId,
-            Bitmap contactIcon,
             String contactName,
             String sipUri,
             PendingIntent intent) {
-        RemoteViews notificationLayoutHeadsUp =
-                new RemoteViews(
-                        context.getPackageName(), R.layout.call_incoming_notification_heads_up);
+        RemoteViews notificationLayoutHeadsUp = new RemoteViews(context.getPackageName(), R.layout.call_incoming_notification_heads_up);
         notificationLayoutHeadsUp.setTextViewText(R.id.caller, contactName);
         notificationLayoutHeadsUp.setTextViewText(R.id.sip_uri, sipUri);
         notificationLayoutHeadsUp.setTextViewText(
                 R.id.incoming_call_info, context.getString(R.string.incall_notif_incoming));
-        if (contactIcon != null) {
-            notificationLayoutHeadsUp.setImageViewBitmap(R.id.caller_picture, contactIcon);
-        }
-        Log.w("myLog", " CREATE NOTIFICATIOn"  + intent);
+
+        Log.w("myLog", " CREATE NOTIFICATIOn" + intent);
         return new Notification.Builder(
                 context, "My Notifications2")
                 .setStyle(new Notification.DecoratedCustomViewStyle())

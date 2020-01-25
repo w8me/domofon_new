@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/LinphoneStyle">
         <activity
-            android:name=".LauncherActivity"
+            android:name=".ui.LauncherActivity"
             android:noHistory="true"
             android:theme="@style/LinphoneStyle"
             android:screenOrientation="portrait">
@@ -30,15 +30,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/LinphoneStyle"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ConfigureAccountActivity"
+            android:name=".ui.ConfigureAccountActivity"
             android:theme="@style/LinphoneStyle"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".CallActivity"
+            android:name=".ui.CallActivity"
             android:launchMode="singleTop"
             android:noHistory="true"
             android:resizeableActivity="true"
@@ -47,12 +47,9 @@
             android:screenOrientation="portrait"/>
 
         <service
-            android:name=".LinphoneService"
+            android:name=".service.LinphoneService"
             android:label="@string/app_name" />
 
-        <receiver
-            android:name=".receivers.AlarmReceiver"
-            android:process=":remote" />
         <receiver
             android:name=".receivers.AutoStartUp"
             android:enabled="true"
@@ -62,6 +59,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".receivers.NotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>

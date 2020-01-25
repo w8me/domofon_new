@@ -105,7 +105,6 @@ class ApiTwentyOnePlus {
 
     public static Notification createIncomingCallNotification(
             Context context,
-            Bitmap contactIcon,
             String contactName,
             String sipUri,
             PendingIntent intent) {
@@ -116,7 +115,6 @@ class ApiTwentyOnePlus {
                 .setSmallIcon(R.drawable.topbar_call_notification)
                 .setAutoCancel(false)
                 .setContentIntent(intent)
-                .setLargeIcon(contactIcon)
                 .setCategory(Notification.CATEGORY_CALL)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setPriority(Notification.PRIORITY_HIGH)

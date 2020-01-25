@@ -44,20 +44,19 @@ public class Compatibility {
     public static Notification createIncomingCallNotification(
             Context context,
             int callId,
-            Bitmap contactIcon,
             String contactName,
             String sipUri,
             PendingIntent intent) {
         if (Version.sdkAboveOrEqual(Version.API26_O_80)) {
             Log.w("myLog", "createIncomingCallNotification ");
             return ApiTwentySixPlus.createIncomingCallNotification(
-                    context, callId, contactIcon, contactName, sipUri, intent);
+                    context, callId,contactName, sipUri, intent);
         } else if (Version.sdkAboveOrEqual(Version.API24_NOUGAT_70)) {
             return ApiTwentyFourPlus.createIncomingCallNotification(
-                    context, callId, contactIcon, contactName, sipUri, intent);
+                    context, callId,contactName, sipUri, intent);
         }
         return ApiTwentyOnePlus.createIncomingCallNotification(
-                context, contactIcon, contactName, sipUri, intent);
+                context, contactName, sipUri, intent);
     }
 
 
