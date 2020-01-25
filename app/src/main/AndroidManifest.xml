@@ -21,7 +21,8 @@
         <activity
             android:name=".LauncherActivity"
             android:noHistory="true"
-            android:theme="@style/LinphoneStyle">
+            android:theme="@style/LinphoneStyle"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,17 +31,20 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/LinphoneStyle" />
+            android:theme="@style/LinphoneStyle"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ConfigureAccountActivity"
-            android:theme="@style/LinphoneStyle" />
+            android:theme="@style/LinphoneStyle"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CallActivity"
             android:launchMode="singleTop"
             android:noHistory="true"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
-            android:theme="@style/LinphoneStyle" />
+            android:theme="@style/LinphoneStyle"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".LinphoneService"
