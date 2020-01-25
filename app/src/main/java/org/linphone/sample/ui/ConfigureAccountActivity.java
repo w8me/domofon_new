@@ -3,7 +3,6 @@ package org.linphone.sample.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import org.linphone.sample.R;
 public class ConfigureAccountActivity extends Activity {
     private EditText mUsername, mPassword, mDomain;
     private RadioGroup mTransport;
-    private Button mConnect;
 
     private AccountCreator mAccountCreator;
     private CoreListenerStub mCoreListener;
@@ -32,10 +30,6 @@ public class ConfigureAccountActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.configure_account);
-
-        // Account creator can help you create/config accounts, even not sip.linphone.org ones
-        // As we only want to configure an existing account, no need for server URL to make requests
-        // to know whether or not account exists, etc...
         mAccountCreator = LinphoneService.getCore().createAccountCreator(null);
 
         mUsername = findViewById(R.id.username);
@@ -43,8 +37,7 @@ public class ConfigureAccountActivity extends Activity {
         mDomain = findViewById(R.id.domain);
         mTransport = findViewById(R.id.assistant_transports);
 
-        mConnect = findViewById(R.id.configure);
-        mConnect.setOnClickListener(
+        findViewById(R.id.configure).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

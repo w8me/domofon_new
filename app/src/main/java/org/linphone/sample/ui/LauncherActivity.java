@@ -33,14 +33,7 @@ public class LauncherActivity extends Activity {
     }
 
     private void onServiceReady() {
-        Intent intent = new Intent();
-        intent.setClass(LauncherActivity.this, MainActivity.class);
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            intent.putExtras(getIntent().getExtras());
-        }
-        intent.setAction(getIntent().getAction());
-        intent.setType(getIntent().getType());
-        startActivity(intent);
+        startActivity(new Intent(LauncherActivity.this, MainActivity.class));
     }
 
     private class ServiceWaitThread extends Thread {
