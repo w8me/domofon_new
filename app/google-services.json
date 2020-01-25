@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "413502419591",
+    "firebase_url": "https://domofonnew.firebaseio.com",
+    "project_id": "domofonnew",
+    "storage_bucket": "domofonnew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413502419591:android:a27376cde597a5b090be22",
+        "android_client_info": {
+          "package_name": "org.linphone.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413502419591-r6aqip2md5dt3eu04vgq3fsbvioc1mro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.linphone.sample",
+            "certificate_hash": "cf3136ce9ca29f10e8360e062aac0b46e905dd0c"
+          }
+        },
+        {
+          "client_id": "413502419591-mhn565g84kcbu9u9qh4uda7c89ed6eln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ9NjzzvMp3iLVA9IiSesHbmTZBUxDuL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413502419591-mhn565g84kcbu9u9qh4uda7c89ed6eln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
