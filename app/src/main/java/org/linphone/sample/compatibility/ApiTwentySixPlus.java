@@ -52,7 +52,7 @@ class ApiTwentySixPlus {
         }
         Log.w("myLog", " CREATE NOTIFICATIOn"  + intent);
         return new Notification.Builder(
-                context, context.getString(R.string.notification_channel_id))
+                context, "My Notifications2")
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setSmallIcon(R.drawable.topbar_call_notification)
                 .setContentTitle(contactName)

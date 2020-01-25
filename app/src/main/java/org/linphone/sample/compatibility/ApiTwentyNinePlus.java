@@ -26,6 +26,7 @@ import android.app.RemoteInput;
 import android.content.Context;
 import android.content.Intent;
 
+import org.linphone.sample.CallActivity;
 import org.linphone.sample.NotificationBroadcastReceiver;
 import org.linphone.sample.R;
 
@@ -53,7 +54,7 @@ public class ApiTwentyNinePlus {
     }
 
     public static Notification.Action getCallDeclineAction(Context context, int callId) {
-        Intent hangupIntent = new Intent(context, NotificationBroadcastReceiver.class);
+        Intent hangupIntent = new Intent(context, CallActivity.class);
         hangupIntent.setAction(INTENT_HANGUP_CALL_NOTIF_ACTION);
         hangupIntent.putExtra(INTENT_NOTIF_ID, callId);
 
